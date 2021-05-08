@@ -1,0 +1,15 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+C:\Keil\程序\串口通信\UART.uv2
+Project File Date:  07/08/2020
+
+<h2>Output:</h2>
+创建目标 '目标 1'
+编译 UART.C ...
+连接 ...
+Program Size: data=11.0 xdata=0 code=373
+创建 HEX 文件 "UART" ...
+"UART" - 0 个错误, 0 个警告。

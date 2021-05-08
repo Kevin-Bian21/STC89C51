@@ -1,0 +1,112 @@
+C51 COMPILER V8.06   DZ                                                                    07/05/2020 21:53:28 PAGE 1   
+
+
+C51 COMPILER V8.06, COMPILATION OF MODULE DZ
+OBJECT MODULE PLACED IN dz.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE dz.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<reg52.h>
+   2          #include<intrins.h>
+   3          #define uint unsigned int
+   4          #define uchar unsigned char
+   5          sbit I_CP = P3^5;       //串行输入时钟信号
+   6          sbit O_CP = P3^6;       //并行输出时钟信号
+   7          sbit DS = P3^4;   //串行数据输入端
+   8          uint i,j,m,n,row;
+   9          uchar code a[2][8]=
+  10          {
+  11          0xEF,0xC7,0x83,0x01,0x01,0x93,0xFF,0xFF,
+  12           0xFF,0xEF,0xC7,0x83,0x01,0x01,0x93,0xFF
+  13          }; 
+  14          /* 0xFF,0xEF,0xC7,0x83,0x01,0x01,0x93,0xFF                              
+  15          void main()
+  16          {
+  17                  uchar i,j;
+  18                  i=0xfe; //列，低电位有效
+  19                  for(j=0;j<8;j++)
+  20                  {       
+  21                          I_CP=0;
+  22                          O_CP=0;
+  23                          if(i & 0x01)
+  24                                  DS=1;
+  25                          else
+  26                                  DS=0;
+  27                          I_CP=1;
+  28                          i>>=1;
+  29                  }
+  30                  i=0x40;  //行，高电位有效
+  31                  for(j=0;j<8;j++)
+  32                  {
+  33                          I_CP=0;
+  34                          O_CP=0;                 
+  35          
+  36                          if(i & 0x01)
+  37                                  DS=1;
+  38                          else
+  39                                  DS=0;
+  40                          I_CP=1;
+  41                          i>>=1;
+  42                  }
+  43                  O_CP=1;
+  44                  while(1);       
+  45          }
+  46          */
+  47          
+  48          void display(uchar z)
+  49          {       
+  50   1              for(j=0;j<8;j++)
+  51   1              {
+  52   2                      I_CP=0;
+  53   2                      if(z & 0x01)
+  54   2                              DS=1;
+  55   2                      else
+C51 COMPILER V8.06   DZ                                                                    07/05/2020 21:53:28 PAGE 2   
+
+  56   2                              DS=0;
+  57   2                      I_CP=1;
+  58   2                      z>>=1;
+  59   2              }
+  60   1      }
+  61          void main()
+  62          {       
+  63   1              P1=0x00;
+  64   1              while(1){ 
+  65   2                      for(m=0;m<2;m++){ 
+  66   3                              for(n=0;n<500;n++){       //循环显示500次
+  67   4                                      row=0x80;       
+  68   4                                      for(i=0;i<8;i++){
+  69   5                                              O_CP=0;
+  70   5                                              display(a[m][i]);
+  71   5                                              display(row);
+  72   5                                              row=_cror_(row,1);
+  73   5                                              O_CP=1;
+  74   5                                      }
+  75   4                              }  
+  76   3                      }
+  77   2              }
+  78   1      }
+  79                  
+  80          
+  81          
+  82          
+  83          
+  84          
+  85          
+  86          
+  87          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    173    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     10    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

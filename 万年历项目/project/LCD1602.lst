@@ -1,0 +1,92 @@
+C51 COMPILER V8.06   LCD1602                                                               07/30/2020 13:47:21 PAGE 1   
+
+
+C51 COMPILER V8.06, COMPILATION OF MODULE LCD1602
+OBJECT MODULE PLACED IN ..\output\LCD1602.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ..\Sources\LCD1602.C BROWSE DEBUG OBJECTEXTEND PRINT(.\LCD1602.lst) OBJECT(
+                    -..\output\LCD1602.obj)
+
+line level    source
+
+   1          #include "LCD1602.h"
+   2          
+   3          void Read_Busy()  //读忙信号
+   4          {
+   5   1              RS=0;
+   6   1              RW=1;
+   7   1              P0=0xff;         
+   8   1              do{
+   9   2                      EN=1;
+  10   2              }while(P0&0x80);  //第八位为1禁止读写
+  11   1              EN=0;
+  12   1      }
+  13          void Write_cmd(uchar cmd)
+  14          {
+  15   1              Read_Busy();
+  16   1              RS=0;
+  17   1              RW=0;
+  18   1              P0=cmd;
+  19   1              EN=1;
+  20   1              EN=0;
+  21   1      }
+  22          void Write_data(uchar dat)
+  23          {
+  24   1              Read_Busy();
+  25   1              RS=1;
+  26   1              RW=0;
+  27   1              P0=dat;
+  28   1              EN=1;
+  29   1              EN=0;
+  30   1      }
+  31          void DisplayChar(uchar x,y,dat)  //显示一个字节数据
+  32          {
+  33   1              if(y)
+  34   1              x|=0x40;  //y=1，显示在第二行
+  35   1              x|=0x80;  //否则显示在第一行
+  36   1              Write_cmd(x);
+  37   1              Write_data(dat);
+  38   1      }
+  39          void DisplayOneStr(uchar x,y,dat)  //显示一个字节字符
+  40          {
+  41   1              DisplayChar(x++,y,dat/16+'0');
+  42   1              DisplayChar(x,y,dat%16+'0');
+  43   1      }
+  44          
+  45          void DisplayStr(uchar x,y,uchar *str)
+  46          {
+  47   1              uchar addr;
+  48   1              if(y==0)
+  49   1                      addr=0x00+x;
+  50   1              else
+  51   1                      addr=0x40+x;
+  52   1              Write_cmd(addr|0x80);
+  53   1              while(*str!='\0')
+  54   1                      Write_data(*str++);
+C51 COMPILER V8.06   LCD1602                                                               07/30/2020 13:47:21 PAGE 2   
+
+  55   1      }
+  56          void Init_1602()
+  57          {
+  58   1              Write_cmd(0x38);  //选择16*2显示
+  59   1              Write_cmd(0x0c);  //开显示，开光标
+  60   1              Write_cmd(0x06);  //读写一个字节后地址指针加一
+  61   1              Write_cmd(0x01); //清屏
+  62   1      }
+  63          
+  64          
+  65          
+  66          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    205    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       6
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,162 @@
+C51 COMPILER V8.06   DS1302                                                                07/20/2020 14:08:55 PAGE 1   
+
+
+C51 COMPILER V8.06, COMPILATION OF MODULE DS1302
+OBJECT MODULE PLACED IN DS1302.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE DS1302.C BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<reg52.h>
+   2          #define uint unsigned int 
+   3          #define uchar unsigned char
+   4          sbit SCLK=P1^0;
+   5          sbit IO=P1^1;
+   6          sbit CE=P1^2;
+   7          sbit W_LE=P2^7;
+   8          sbit D_LE=P2^6;
+   9          uchar Hour,Min,Sec;
+  10          unsigned char code Duan[11] =
+  11           {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0X40};//共阴数码管显示段码值 0~9再加0X40
+  12          unsigned char code Wei[8] =
+  13           {0xfe,0xfd,0xfb,0xf7,0xef,0xdf,0xbf,0x7f}; //数码管的位码,共八位，低电平有效。
+  14          void delay(uint z)
+  15          {
+  16   1              uint y;
+  17   1              for(;z>0;z--)
+  18   1                      for(y=114;y>0;y--);
+  19   1      }
+  20          void display(uchar Hour,Min,Sec)
+  21          {
+  22   1              static uchar i;
+  23   1              P0=0xff;        
+  24   1              W_LE=1;
+  25   1              P0=Wei[i];
+  26   1              W_LE=0;
+  27   1              switch(i)
+  28   1              {
+  29   2                      case 0:D_LE=1;P0=Duan[Hour/10];D_LE=0;break;
+  30   2                      case 1:D_LE=1;P0=Duan[Hour%10];D_LE=0;break;
+  31   2                      case 2:D_LE=1;P0=Duan[10];D_LE=0;break;
+  32   2                      case 3:D_LE=1;P0=Duan[Min/10];D_LE=0;break;
+  33   2                      case 4:D_LE=1;P0=Duan[Min%10];D_LE=0;break;
+  34   2                      case 5:D_LE=1;P0=Duan[10];D_LE=0;break;
+  35   2                      case 6:D_LE=1;P0=Duan[Sec/10];D_LE=0;break;
+  36   2                      case 7:D_LE=1;P0=Duan[Sec%10];D_LE=0;break;
+  37   2              }
+  38   1              i++;
+  39   1              if(i==8)
+  40   1                      i=0;
+  41   1              delay(2);       
+  42   1      }
+  43          void Write(uchar cmd,dat)
+  44          {
+  45   1              uchar i;
+  46   1              CE=0;
+  47   1              CE=1;
+  48   1              for(i=0;i<8;i++)
+  49   1              {
+  50   2                      SCLK=0;
+  51   2                      if(cmd&0x01)
+  52   2                              IO=1;
+  53   2                      else 
+  54   2                              IO=0;
+  55   2                      SCLK=1;
+C51 COMPILER V8.06   DS1302                                                                07/20/2020 14:08:55 PAGE 2   
+
+  56   2                      cmd>>=1;
+  57   2              }
+  58   1              for(i=0;i<8;i++)
+  59   1              {
+  60   2                      SCLK=0;
+  61   2                      if(dat&0x01)
+  62   2                              IO=1;
+  63   2                      else 
+  64   2                              IO=0;
+  65   2                      SCLK=1;
+  66   2                      dat>>=1;
+  67   2              }
+  68   1              CE=0;
+  69   1      }
+  70          
+  71          uchar Read(uchar cmd)
+  72          {
+  73   1              uchar i,dat;
+  74   1              CE=0;
+  75   1              CE=1;
+  76   1              for(i=0;i<8;i++)
+  77   1              {
+  78   2                      SCLK=0;
+  79   2                      if(cmd&0x01)
+  80   2                              IO=1;
+  81   2                      else 
+  82   2                              IO=0;
+  83   2                      SCLK=1;
+  84   2                      cmd>>=1;
+  85   2              }
+  86   1              for(i=0;i<8;i++)
+  87   1              {       
+  88   2                      SCLK=0;
+  89   2                      dat>>=1;  
+  90   2                      if(IO)
+  91   2                              dat|=0x80; 
+  92   2                      SCLK=1;
+  93   2              }
+  94   1              CE=0;
+  95   1              return(dat);            
+  96   1      }
+  97          uchar DATA_BCD(uchar dat)
+  98          {
+  99   1              uchar dat1,dat2;
+ 100   1              dat2=dat;
+ 101   1              dat1=dat2/10;
+ 102   1              dat2=dat2%10;
+ 103   1              dat2=dat2+dat1*16;
+ 104   1              return(dat2);   
+ 105   1      }
+ 106          uchar BCD_DATA(uchar dat)
+ 107          {
+ 108   1              uchar dat1,dat2;
+ 109   1              dat2=dat;
+ 110   1              dat1=dat2/16;
+ 111   1              dat2=dat2%16;
+ 112   1              dat2=dat2+dat1*10;
+ 113   1              return(dat2);   
+ 114   1      }
+ 115          void main()
+ 116          {
+ 117   1              uchar i;
+C51 COMPILER V8.06   DS1302                                                                07/20/2020 14:08:55 PAGE 3   
+
+ 118   1              Write(0x8e,0);
+ 119   1              Write(0x80,DATA_BCD(33));
+ 120   1              Write(0x82,DATA_BCD(22));
+ 121   1              Write(0x84,DATA_BCD(0x0d));
+ 122   1              Write(0x8e,0x80);
+ 123   1              while(1)
+ 124   1              {
+ 125   2                      Write(0x8e,0);
+ 126   2                      Sec=BCD_DATA(Read(0x81));
+ 127   2                      Min=BCD_DATA(Read(0x83));
+ 128   2                      Hour=BCD_DATA(Read(0x85));
+ 129   2                      Write(0x8e,0x80);
+ 130   2                      for(i=0;i<50;i++)
+ 131   2                              display(Hour,Min,Sec);
+ 132   2              }
+ 133   1      }
+ 134          
+ 135          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    514    ----
+   CONSTANT SIZE    =     19    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

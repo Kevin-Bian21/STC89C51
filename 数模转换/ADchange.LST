@@ -1,0 +1,138 @@
+C51 COMPILER V8.06   ADCHANGE                                                              07/12/2020 22:36:22 PAGE 1   
+
+
+C51 COMPILER V8.06, COMPILATION OF MODULE ADCHANGE
+OBJECT MODULE PLACED IN ADchange.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ADchange.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<reg52.h>
+   2          #include<intrins.h>
+   3          #define uint unsigned int
+   4          #define uchar unsigned char
+   5          #define MAIN_Fosc       11059200UL      //宏定义主时钟HZ
+   6          #define AD_CH0 0x94
+   7          #define AD_CH1 0xd4
+   8          #define AD_CH2 0xa4
+   9          #define AD_CH3 0xe4
+  10          
+  11          sbit W_LE=P2^7;
+  12          sbit D_LE=P2^6;
+  13          sbit CS = P3^7;
+  14          sbit DCLK=P2^1;
+  15          sbit DIN=P2^0;
+  16          sbit DOUT = P2^5;
+  17          
+  18          uint num;
+  19          uchar code Wei[]={0xfe,0xfb,0xfd,0xf7,0xef,0xdf,0xbf,0x7f};
+  20          uchar code Duan[]={0x3F, 0x06, 0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F, 0x6F};
+  21          
+  22          void Delay_Ms(uint ms)
+  23          {
+  24   1               uint i;
+  25   1               do{
+  26   2                    i = MAIN_Fosc / 96000; 
+  27   2                        while(--i);   //96T per loop
+  28   2           }while(--ms);
+  29   1      }
+  30          
+  31          void display(uint j)    
+  32          {
+  33   1              static uint i=4;
+  34   1              P0=0xff;
+  35   1              W_LE=1;
+  36   1              P0=Wei[i];
+  37   1              W_LE=0;
+  38   1              switch(i)
+  39   1              {
+  40   2                      case 4: D_LE=1;P0=Duan[j/1000];D_LE=0;break;
+  41   2                      case 5: D_LE=1;P0=Duan[j%1000/100];D_LE=0;break;
+  42   2                      case 6: D_LE=1;P0=Duan[j%100/10];D_LE=0;break;
+  43   2                      case 7: D_LE=1;P0=Duan[j%10];D_LE=0;break;
+  44   2               }
+  45   1              i++;
+  46   1              if(i==8)
+  47   1                      i=4;
+  48   1      }
+  49          void Write_Byte(uchar dat)
+  50          {
+  51   1              uchar i;
+  52   1              for(i=0;i<8;i++)
+  53   1              {
+  54   2                      DCLK=0;
+  55   2                      if(dat & 0x80)
+C51 COMPILER V8.06   ADCHANGE                                                              07/12/2020 22:36:22 PAGE 2   
+
+  56   2                              DIN=1;
+  57   2                      else 
+  58   2                              DIN=0;
+  59   2                      DCLK=1;
+  60   2                      dat<<=1;
+  61   2              }
+  62   1      }
+  63          uint Read_Byte()
+  64          {
+  65   1              uint i;
+  66   1              uint dat;
+  67   1              for(i=0;i<12;i++)
+  68   1              {
+  69   2                      dat<<=1;
+  70   2                      DCLK=1;
+  71   2                      DCLK=0;
+  72   2                      if(DOUT)
+  73   2                              dat|=0x01;
+  74   2              }
+  75   1              return(dat);
+  76   1      }
+  77          uint Read(uchar Ctrl)
+  78          {
+  79   1              uint dat;
+  80   1              CS=0;
+  81   1              Write_Byte(Ctrl);
+  82   1              DCLK=0;
+  83   1              _nop_();  //延时5us，进行输入输出切换
+  84   1              _nop_();
+  85   1              _nop_();
+  86   1              _nop_();
+  87   1              _nop_();
+  88   1              dat=Read_Byte();
+  89   1              CS=1;
+  90   1              return(dat);
+  91   1      }
+  92          
+  93          void main()
+  94          {  
+  95   1              uchar i; 
+  96   1              while(1)
+  97   1              {       
+  98   2                      if(i>=100)
+  99   2                      {
+ 100   3                              num=Read(AD_CH1); //选取通道口，0是光敏，1是热敏         
+ 101   3                              num=num*1.2207;    //(5V/4096)
+ 102   3                              i=0;  
+ 103   3                      }
+ 104   2                      display(num); 
+ 105   2                      Delay_Ms(5);
+ 106   2                      i++; 
+ 107   2              }  
+ 108   1      }       
+ 109          
+ 110          
+ 111          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    306    ----
+   CONSTANT SIZE    =     18    ----
+   XDATA SIZE       =   ----    ----
+C51 COMPILER V8.06   ADCHANGE                                                              07/12/2020 22:36:22 PAGE 3   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

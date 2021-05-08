@@ -1,0 +1,75 @@
+C51 COMPILER V8.06   TIME1                                                                 07/07/2020 18:52:10 PAGE 1   
+
+
+C51 COMPILER V8.06, COMPILATION OF MODULE TIME1
+OBJECT MODULE PLACED IN time1.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE time1.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<reg52.h>
+   2          #include<intrins.h>
+   3          unsigned char Sec,mSec;
+   4          sbit W_LE=P2^7; 
+   5          sbit D_LE=P2^6;
+   6          unsigned code Wei[10]={  0xfe,0xfd,0xfb,0xf7, 0xef,0xdf,0xbf,0x7f };
+   7          unsigned code Duan[10]={ 0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F,};
+   8          void display()
+   9          {       
+  10   1              W_LE=1;
+  11   1              P0=Wei[7];
+  12   1              W_LE=0;
+  13   1      
+  14   1              D_LE=1;
+  15   1              P0=Duan[Sec];
+  16   1              D_LE=0;
+  17   1      }
+  18          
+  19                          
+  20          void time1Init()
+  21          {
+  22   1              TMOD=0x01;
+  23   1              TR0=1;
+  24   1              TH0=(65535-50000)/256;
+  25   1              TL0=(65535-50000)%256;
+  26   1      }
+  27          void main()
+  28          {
+  29   1              time1Init();
+  30   1              P1=0x7f;
+  31   1              while(1)
+  32   1              {
+  33   2                      if(TF0==1)
+  34   2                      {
+  35   3                              TF0=0;
+  36   3                              TH0=0x3c;
+  37   3                              TL0=0xb0;
+  38   3                              mSec++;
+  39   3                              if(mSec==20)//1000ms之后执行下列语句
+  40   3                              {       
+  41   4                                      P1=_cror_(P1,1);
+  42   4                                      mSec=0;
+  43   4                                      Sec++;
+  44   4                                      if(Sec==8)
+  45   4                                              Sec=0;   
+  46   4                              }
+  47   3                              display();
+  48   3                      }
+  49   2              }
+  50   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    102    ----
+   CONSTANT SIZE    =     40    ----
+C51 COMPILER V8.06   TIME1                                                                 07/07/2020 18:52:10 PAGE 2   
+
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

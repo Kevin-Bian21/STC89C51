@@ -1,0 +1,103 @@
+C51 COMPILER V8.06   TIMEUPT                                                               07/08/2020 11:52:50 PAGE 1   
+
+
+C51 COMPILER V8.06, COMPILATION OF MODULE TIMEUPT
+OBJECT MODULE PLACED IN timeupt.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE timeupt.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<reg52.h>
+   2          #include<intrins.h>
+   3          #define uint unsigned int 
+   4          #define uchar unsigned char
+   5          sbit W_LE=P2^7;
+   6          sbit D_LE=P2^6;
+   7          sbit Key_s2=P3^0;
+   8          uchar num;
+   9          uchar code Wei[]={0xfe,0xfb,0xfd,0xf7,0xef,0xdf,0xbf,0x7f};
+  10          uchar code Duan[]={0x3F, 0x06, 0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F, 0x6F,};
+  11          void delay(uchar z)
+  12          {
+  13   1              uchar y;
+  14   1              for(;z>0;z--)
+  15   1                      for(y=114;y>0;y--);
+  16   1      }
+  17          
+  18          void display(uchar j)
+  19          {
+  20   1              static uchar i=5;
+  21   1              P0=0xff;
+  22   1              W_LE=1;
+  23   1              P0=Wei[i];
+  24   1              W_LE=0;
+  25   1              switch(i)
+  26   1              {
+  27   2                      case 5: D_LE=1;P0=Duan[j/100];D_LE=0;break;
+  28   2                      case 6: D_LE=1;P0=Duan[j%100/10];D_LE=0;break;
+  29   2                      case 7: D_LE=1;P0=Duan[j%10];D_LE=0;break;
+  30   2               }
+  31   1              i++;
+  32   1              if(i>7)
+  33   1                      i=5;
+  34   1      }
+  35          /*        
+  36          void time0Init()
+  37          {
+  38                  TMOD=0x01;
+  39                  TR0=1;
+  40                  TH0=0xee;
+  41                  TL0=0x00;
+  42          }*/                     
+  43          void main ()
+  44          {       
+  45   1              EA=1;  //开总中断
+  46   1              ET0=1; //允许To中断
+  47   1              TMOD=0x01;
+  48   1              TR0=1;
+  49   1      //      time0Init();
+  50   1              while(1)
+  51   1              {
+  52   2                      if(Key_s2==0)
+  53   2                      {
+  54   3                              delay(20); //按键消抖
+  55   3                              if(Key_s2==0)
+C51 COMPILER V8.06   TIMEUPT                                                               07/08/2020 11:52:50 PAGE 2   
+
+  56   3                              {
+  57   4                                 num++;
+  58   4                                 if(num>101)
+  59   4                                              num=0;
+  60   4                                      while(!Key_s2);//松手检测
+  61   4                              } 
+  62   3                      }                        
+  63   2              }  
+  64   1      }
+  65          void time0() interrupt 1//定时器0溢出中断
+  66          {
+  67   1              TH0=0xee;
+  68   1              TL0=0x00; //定时五毫秒
+  69   1              display(num);
+  70   1      }                        
+  71                            
+  72                            
+  73                            
+  74                            
+  75                           
+  76                            
+  77                           
+  78               
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    171    ----
+   CONSTANT SIZE    =     18    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

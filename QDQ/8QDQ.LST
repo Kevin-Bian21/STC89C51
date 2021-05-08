@@ -1,0 +1,249 @@
+C51 COMPILER V8.06   8QDQ                                                                  06/28/2020 13:18:50 PAGE 1   
+
+
+C51 COMPILER V8.06, COMPILATION OF MODULE 8QDQ
+OBJECT MODULE PLACED IN 8QDQ.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 8QDQ.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1           #include <reg52.h>
+   2           #define uchar unsigned char
+   3           #define uint unsigned int 
+   4           int djs1=30 ;   //倒计时30秒的抢答时间
+   5           int djs2=40 ;   //倒计时40秒答题时间
+   6           #define DX P0   //定义数码管段选端口 
+   7           #define WX P2   //定义位选端口
+   8          
+   9           bit flag;       //开始抢答标志位
+  10           uint num=0 , djs=0; //num选手号，djs调整时间的变量
+  11           uchar second,count; //定义second和count两个变量
+  12           uchar shiwei , gewei;  //数码管显示
+  13           sbit Buzzer = P3^0; //定义蜂鸣器端口
+  14           sbit Key1 = P1^0;
+  15           sbit Key2 = P1^1;
+  16           sbit Key3 = P1^2;
+  17           sbit Key4 = P1^3;
+  18           sbit Key5 = P1^4;
+  19           sbit Key6 = P1^5;
+  20           sbit Key7 = P1^6;
+  21           sbit Key8 = P1^7;
+  22          
+  23           sbit Key10 = P3^4;
+  24           sbit Key11 = P3^5;
+  25           sbit Key12 = P3^6;
+  26           sbit Key13 = P3^7;
+  27           sbit Key14 = P2^4;
+  28           sbit Key15 = P2^7;
+  29            
+  30           sbit LED1 = P3^1;
+  31           sbit LED2 = P3^2;
+  32           sbit LED3 = P3^3;
+  33          
+  34           unsigned char code Seg_Duan[] =
+  35           {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0X40};//共阴数码管显示段码值 0~9再加0X40
+  36           unsigned char code Seg_Wei[] =
+  37           {0xfe,0xfd,0xfb,0xf7}; //数码管的位码,共四位，低电平有效。
+  38          
+  39           //定义显示延时函数
+  40           void delay( int m)
+  41           {
+  42   1              unsigned i=0;
+  43   1              for(i=0;m>i;m--);
+  44   1       }
+  45          //定义抢答，答题，调整时间函数
+  46           void Key_host ()   //主持人控制           
+  47          {
+  48   1              if(Key10==0)   //抢答键按下
+  49   1              {
+  50   2                      TR0=1;     //启动定时器 
+  51   2                      second=djs1;    //30秒倒计时开始
+  52   2                      flag=1;                 //标志位置 1
+  53   2                      LED1=1;
+  54   2                      LED2=0;
+  55   2                      LED3=0;
+C51 COMPILER V8.06   8QDQ                                                                  06/28/2020 13:18:50 PAGE 2   
+
+  56   2                      Buzzer=0;
+  57   2              }
+  58   1              if(Key11==0)   //答题键按下
+  59   1              {       
+  60   2                      TR0=1;     //启动定时器 
+  61   2                      second=djs2;   //40秒倒计时
+  62   2                      LED1=0;
+  63   2                      LED2=1;
+  64   2                      LED3=0;
+  65   2                      Buzzer=0;
+  66   2              }
+  67   1              if(Key12==0)    //时间加按下
+  68   1              {
+  69   2      //              TR0=0;     //停止倒计时
+  70   2                      {
+  71   3      //              djs=djs1;
+  72   3      //              djs=shiwei*10+gewei;   //将当前的时间赋给djs
+  73   3                      delay(300000);
+  74   3                      djs1 ++ ;         //按一下键后djs加 1
+  75   3                      second=djs1;
+  76   3                      }
+  77   2              }                
+  78   1              if(Key13==0)
+  79   1              {       
+  80   2      //              TR0=0;
+  81   2      //              djs=shiwei*10+gewei;
+  82   2                      delay(300000);
+  83   2                      djs1--;
+  84   2                      second=djs1;
+  85   2              }
+  86   1              if(Key14==0)
+  87   1              {
+  88   2                      delay(300000);
+  89   2                      djs2 ++ ;         //按一下键后djs加 1
+  90   2                      second=djs2;
+  91   2              }
+  92   1              if(Key15==0)
+  93   1              {
+  94   2                      delay(300000);
+  95   2                      djs2 -- ;         //按一下键后djs加 1
+  96   2                      second=djs2;
+  97   2              }
+  98   1      }
+  99          //定义选手按键函数
+ 100          void Key_players()                 //选手控制
+ 101          {
+ 102   1              if(flag==1)            //当抢答键按下后选手才能抢答
+ 103   1              {
+ 104   2                      if(Key1==0)        //一号选手按下键位
+ 105   2                      {
+ 106   3                              TR0=0;     //关闭定时器
+ 107   3                              num=1;     //一号选手
+ 108   3                              flag=0;    //flag置0，使得其他选手无法再抢。
+ 109   3                      }
+ 110   2                      if(Key2==0)
+ 111   2                      {
+ 112   3                              TR0=0;
+ 113   3                              num=2;
+ 114   3                              flag=0;
+ 115   3                      }
+ 116   2                      if(Key3==0)
+ 117   2                      {
+C51 COMPILER V8.06   8QDQ                                                                  06/28/2020 13:18:50 PAGE 3   
+
+ 118   3                              TR0=0;
+ 119   3                              num=3;
+ 120   3                              flag=0;
+ 121   3                      }
+ 122   2                      if(Key4==0)
+ 123   2                      {
+ 124   3                              TR0=0;
+ 125   3                              num=4;
+ 126   3                              flag=0;
+ 127   3                      }
+ 128   2                      if(Key5==0)
+ 129   2                      {
+ 130   3                              TR0=0;
+ 131   3                              num=5;
+ 132   3                              flag=0;
+ 133   3                      }
+ 134   2                      if(Key6==0)
+ 135   2                      {
+ 136   3                              TR0=0;
+ 137   3                              num=6;
+ 138   3                              flag=0;
+ 139   3                      }
+ 140   2                      if(Key7==0)
+ 141   2                      {
+ 142   3                              TR0=0;
+ 143   3                              num=7;
+ 144   3                              flag=0;
+ 145   3                      }
+ 146   2                      if(Key8==0)
+ 147   2                      {
+ 148   3                              TR0=0;
+ 149   3                              num=8;
+ 150   3                              flag=0;
+ 151   3                      }
+ 152   2              }
+ 153   1      }
+ 154          //定义数码管显示函数
+ 155          void Display()    
+ 156          {
+ 157   1                      shiwei=second/10;     //数码管十位 
+ 158   1                      gewei =second%10;     //数码管个位  
+ 159   1              
+ 160   1                      WX = Seg_Wei[0];      //第一个数码管选中
+ 161   1                      DX = Seg_Duan[num];       //显示选手号
+ 162   1                      delay(300);
+ 163   1      
+ 164   1                      WX = Seg_Wei[1];      //第二个数码管选中
+ 165   1                      DX = Seg_Duan[10];    //显示一横杠
+ 166   1                      delay(300);
+ 167   1      
+ 168   1                      WX = Seg_Wei[2];       //第三位数码管选中
+ 169   1                  DX = Seg_Duan[shiwei]; //显示倒计时的十位 
+ 170   1                  delay(300); 
+ 171   1                      
+ 172   1                      WX = Seg_Wei[3];       //第四位数码管选中 
+ 173   1                      DX = Seg_Duan[gewei];  //显示倒计时的个位 
+ 174   1                      delay(300);
+ 175   1      }
+ 176          //定义主函数    
+ 177          void  main()
+ 178           {       
+ 179   1              TMOD=0x01; //定时器设置 16位  ,使用定时器 T0的模式 1
+C51 COMPILER V8.06   8QDQ                                                                  06/28/2020 13:18:50 PAGE 4   
+
+ 180   1              EA=1;     //开总中断
+ 181   1              ET0=1;    //中断允许
+ 182   1              LED1=0;
+ 183   1              LED2=0;
+ 184   1              LED3=1;
+ 185   1              while(1) 
+ 186   1              {
+ 187   2                  Key_host();
+ 188   2                      Key_players();
+ 189   2                      Display();
+ 190   2                      if(second==0)
+ 191   2                      {
+ 192   3                              LED1=0;
+ 193   3                              LED2=0;
+ 194   3                              LED3=1;
+ 195   3                       }
+ 196   2              }               
+ 197   1      }
+ 198          //定义定时中断函数
+ 199          void time(void) interrupt 1 //定时器0中断 
+ 200          {
+ 201   1              TH0=(65536-50000)/256; //定时时间 50ms
+ 202   1              TL0=(65536-50000)%256; 
+ 203   1              count++; 
+ 204   1              if(count==20) //50毫秒定时，50*20=1000（毫秒)=1秒 
+ 205   1              {
+ 206   2                       count=0;
+ 207   2                       second--; 
+ 208   2                      if(second==1){           //控制蜂鸣器发声
+ 209   3                              Buzzer=0;       
+ 210   3                      }
+ 211   2                      else{
+ 212   3                              Buzzer=1;
+ 213   3                      }
+ 214   2                      if(second==0)//当second为0时，停止倒计时
+ 215   2                      {
+ 216   3                              flag=0;  
+ 217   3                              TR0=0;                  
+ 218   3                      }       
+ 219   2              }        
+ 220   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    410    ----
+   CONSTANT SIZE    =     15    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     12    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

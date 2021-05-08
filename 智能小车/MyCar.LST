@@ -1,0 +1,255 @@
+C51 COMPILER V8.06   MYCAR                                                                 08/03/2020 23:27:28 PAGE 1   
+
+
+C51 COMPILER V8.06, COMPILATION OF MODULE MYCAR
+OBJECT MODULE PLACED IN MyCar.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE MyCar.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<reg52.h>
+   2          #define uint unsigned int
+   3          #define uchar unsigned char
+   4          
+   5          sbit led1=P0^0; //前车灯
+   6          sbit led2=P0^1;
+   7          sbit buzzer=P0^2;
+   8          sbit bat=P0^5;
+   9          sbit EN1=P2^0;
+  10          sbit IN1=P2^1;
+  11          sbit IN2=P2^2;
+  12          sbit led3=P1^0;
+  13          
+  14          sbit EN2=P2^7;
+  15          sbit IN3=P2^6;
+  16          sbit IN4=P2^5;
+  17          uchar timer;
+  18          bit flag;
+  19          
+  20          void delay(uint z)
+  21          {
+  22   1              uint y;
+  23   1              for(;z>0;z--)
+  24   1                      for(y=114;y>0;y--);
+  25   1      }
+  26          
+  27          void UART_Init()          //串口初始化
+  28          {       
+  29   1              SCON=0x50;
+  30   1              TMOD|=0x20;
+  31   1              PCON=0;
+  32   1              TH1=0xfd;         //波特率为9600
+  33   1              TL1=0xfd;
+  34   1              TR1=1;
+  35   1              ES=1;
+  36   1      }
+  37          
+  38          void time_Init()
+  39          {
+  40   1              TMOD|=0x02;
+  41   1              TH0=210;
+  42   1              TL0=210;
+  43   1              TR0=1;
+  44   1              ET0=1;
+  45   1      }
+  46          void go()
+  47          {
+  48   1              IN1=0;
+  49   1              IN2=1;
+  50   1              EN1=1;
+  51   1              IN3=0;
+  52   1              IN4=1;
+  53   1              EN2=1;
+  54   1              led1=1;
+  55   1              led2=0;
+C51 COMPILER V8.06   MYCAR                                                                 08/03/2020 23:27:28 PAGE 2   
+
+  56   1              flag=0;
+  57   1      }
+  58          void turn_back()
+  59          {
+  60   1              IN1=1;
+  61   1              IN2=0;
+  62   1              EN1=1;
+  63   1              IN3=1;
+  64   1              IN4=0;    
+  65   1              EN2=1;
+  66   1              led2=1;
+  67   1              led1=0;
+  68   1              flag=0;
+  69   1      }       
+  70          void stop()
+  71          {
+  72   1              IN1=0;
+  73   1              IN2=0;
+  74   1              EN1=1;
+  75   1              IN3=0;
+  76   1              IN4=0;
+  77   1              EN2=1;
+  78   1              led1=0;
+  79   1              led2=0;
+  80   1              flag=0;
+  81   1      }       
+  82          void turn_left()
+  83          {
+  84   1              IN1=0;
+  85   1              IN2=1;
+  86   1              EN1=1;
+  87   1              IN3=0;
+  88   1              IN4=1;
+  89   1              EN2=1;
+  90   1              if(timer<=180){
+  91   2                      EN1=0;
+  92   2              }
+  93   1              else{
+  94   2                      EN1=1;
+  95   2              }
+  96   1              flag=0;
+  97   1      }
+  98          void turn_right()
+  99          {
+ 100   1              IN1=0;
+ 101   1              IN2=1;
+ 102   1              EN1=1;
+ 103   1              IN3=0;
+ 104   1              IN4=1;
+ 105   1              EN2=1;
+ 106   1              if(timer<=180){
+ 107   2                      EN2=0;
+ 108   2              }
+ 109   1              else{
+ 110   2                      EN2=1;
+ 111   2              }
+ 112   1              flag=0;
+ 113   1      }
+ 114          void turn_circle()
+ 115          {
+ 116   1              IN1=1;
+ 117   1              IN2=0;
+C51 COMPILER V8.06   MYCAR                                                                 08/03/2020 23:27:28 PAGE 3   
+
+ 118   1              EN1=1;
+ 119   1              IN3=0;
+ 120   1              IN4=1;
+ 121   1              EN2=1;
+ 122   1              flag=0; 
+ 123   1      }
+ 124          void avoid_obstacle()
+ 125          {
+ 126   1                      if(bat==0)
+ 127   1                      {
+ 128   2                              stop();
+ 129   2                              delay(500);
+ 130   2                              IN1=0;
+ 131   2                              IN2=1;
+ 132   2      //                      EN1=1;
+ 133   2                              IN3=0;
+ 134   2                              IN4=1;
+ 135   2      //                      EN2=0;
+ 136   2                              if(timer<=80){
+ 137   3                                      EN1=0;
+ 138   3                              }
+ 139   2                              else{
+ 140   3                                      EN1=1;
+ 141   3                              }
+ 142   2                      }
+ 143   1                      else
+ 144   1                      {
+ 145   2                              IN1=0;
+ 146   2                              IN2=1;
+ 147   2      //                      EN1=1;
+ 148   2                              IN3=0;
+ 149   2                              IN4=1;
+ 150   2      //                      EN2=1;
+ 151   2                              if(timer<=80){
+ 152   3                                      EN1=0;
+ 153   3                                      EN2=0;
+ 154   3                              }
+ 155   2                              else{
+ 156   3                                      EN1=1;
+ 157   3                                      EN2=1;
+ 158   3                              }
+ 159   2                      }
+ 160   1              }
+ 161                          
+ 162                  
+ 163          void main()
+ 164          {
+ 165   1              EN1=0;
+ 166   1              EN2=0;  
+ 167   1              EA=1;
+ 168   1              
+ 169   1              UART_Init();
+ 170   1              time_Init();
+ 171   1              while(1)
+ 172   1              {       
+ 173   2                      if(flag==1)
+ 174   2                              avoid_obstacle();       
+ 175   2              }
+ 176   1      }
+ 177          void time() interrupt 1
+ 178          {
+ 179   1              TH0=210;        //溢出一次1ms
+C51 COMPILER V8.06   MYCAR                                                                 08/03/2020 23:27:28 PAGE 4   
+
+ 180   1              TL0=210;
+ 181   1              timer++;
+ 182   1              if(timer==200){
+ 183   2                      timer=0;
+ 184   2              }
+ 185   1              
+ 186   1      }
+ 187          void UART() interrupt 4    //串口中断函数
+ 188          {
+ 189   1              if(RI)
+ 190   1              {                         
+ 191   2                      RI=0;
+ 192   2                      switch(SBUF)
+ 193   2                      {
+ 194   3                              case 0x01:go();break;
+ 195   3                              case 0x02:stop();break;
+ 196   3                              case 0x03:turn_left();break;
+ 197   3                              case 0x04:turn_right();break;
+ 198   3                              case 0x07:turn_circle();break;
+ 199   3                              case 0x08:turn_back();break;
+ 200   3                              case 0x09:flag=1;break;
+ 201   3                              case 0x05:led3=1;break;
+ 202   3                              case 0x06:led3=0;break;
+ 203   3                              default:break;
+ 204   3                      }
+ 205   2              }
+ 206   1      }
+ 207          /*
+ 208          
+ 209          sbit b=P2^3;
+ 210          void s()
+ 211          {
+ 212                  if(bat==0)
+ 213                          b=0;
+ 214                  else
+ 215                          b=1;
+ 216          }
+ 217          void main()
+ 218          {
+ 219                  while(1){
+ 220                  s();
+ 221                  }
+ 222          }
+ 223          */
+ 224          
+ 225                  
+ 226          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    419    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

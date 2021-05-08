@@ -1,0 +1,26 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+C:\Keil\程序\温度传感器DS18B20\DS18B20.uv2
+Project File Date:  07/16/2020
+
+<h2>Output:</h2>
+创建目标 '目标 1'
+连接 ...
+Program Size: data=17.1 xdata=0 code=1210
+创建 HEX 文件 "DS18B20" ...
+"DS18B20" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 DS18B20.C ...
+DS18B20.C(109): 警告 C206: 'ds_init': missing function-prototype
+DS18B20.C(110): 警告 C206: 'write_byte': missing function-prototype
+DS18B20.C(110): 错误 C267: 'write_byte': requires ANSI-style prototype
+目标未产生
+创建目标 '目标 1'
+编译 DS18B20.C ...
+连接 ...
+Program Size: data=17.1 xdata=0 code=1251
+创建 HEX 文件 "DS18B20" ...
+"DS18B20" - 0 个错误, 0 个警告。

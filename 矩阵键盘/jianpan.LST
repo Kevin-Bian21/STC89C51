@@ -1,0 +1,94 @@
+C51 COMPILER V8.06   JIANPAN                                                               07/01/2020 01:43:33 PAGE 1   
+
+
+C51 COMPILER V8.06, COMPILATION OF MODULE JIANPAN
+OBJECT MODULE PLACED IN jianpan.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE jianpan.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #define uint unsigned int
+   3          #define uchar unsigned char
+   4          #define WX P2
+   5          #define DX P0
+   6           uchar num,gewei,shiwei;
+   7           uchar code Duan[] =
+   8           {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0X40};//共阴数码管显示段码值 0~9再加0X40
+   9           uchar code Wei[] =
+  10           {0x0e,0x0d}; //数码管的位码,共两位，低电平有效。
+  11          
+  12           void delay(uint z)
+  13           {      
+  14   1              uint i,y;
+  15   1              for(i=z;i>0;i--)
+  16   1                      for(y=120;y>0;y--);
+  17   1      }
+  18          
+  19           void key_scan()
+  20           {
+  21   1              P1=0x0f;//行扫描
+  22   1              if(P1!=0x0f) //按键被按下
+  23   1              {
+  24   2                      delay(10);
+  25   2                      if(P1!=0x0f)
+  26   2                      {
+  27   3                              switch(P1)
+  28   3                              {
+  29   4                                      case 0x0e:      num=1;break;
+  30   4                                      case 0x0d:      num=5;break;
+  31   4                                      case 0x0b:      num=9;break;
+  32   4                                      case 0x07:      num=13;break;
+  33   4                              }
+  34   3                               P1=0xf0;  //列扫描
+  35   3                               switch (P1)
+  36   3                               {
+  37   4                                      case 0xe0:      num=num;break;
+  38   4                                      case 0xd0:      num=num+1;break;
+  39   4                                      case 0xb0:      num=num+2;break;
+  40   4                                      case 0x70:      num=num+3;break;
+  41   4                              }
+  42   3                      //      while(P1!=0xf0);
+  43   3                       }
+  44   2               }
+  45   1       }
+  46          void display()
+  47          {
+  48   1              shiwei=num/10;
+  49   1              gewei=num%10;
+  50   1      
+  51   1      
+  52   1              WX=Wei[0];
+  53   1              DX=Duan[shiwei];
+  54   1              delay(10);
+  55   1      
+C51 COMPILER V8.06   JIANPAN                                                               07/01/2020 01:43:33 PAGE 2   
+
+  56   1              WX=Wei[1];
+  57   1              DX=Duan[gewei];
+  58   1              delay(10);
+  59   1       }
+  60           void main()
+  61           {      
+  62   1              while(1)
+  63   1              {
+  64   2                      key_scan();
+  65   2                      display();
+  66   2              }
+  67   1      }
+  68          
+  69          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    198    ----
+   CONSTANT SIZE    =     13    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      3    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

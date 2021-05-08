@@ -1,0 +1,72 @@
+C51 COMPILER V8.06   DZP                                                                   07/01/2020 23:33:45 PAGE 1   
+
+
+C51 COMPILER V8.06, COMPILATION OF MODULE DZP
+OBJECT MODULE PLACED IN dzp.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE dzp.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<reg52.h>
+   2          #define uint unsigned int
+   3          #define uchar unsigned char
+   4          sbit SH_CP = P3^0;      //串行输入
+   5          sbit ST_CP = P3^3;      //并行输出
+   6          sbit DS = P3^1;  //串行数据输入端
+   7          
+   8          //uchar code a[]={};
+   9          void main()
+  10          {
+  11   1              uchar i,j;
+  12   1              i=0x80; //列，高电位有效
+  13   1              for(j=0;j<8;j++)
+  14   1              {
+  15   2                      SH_CP=0;
+  16   2                      ST_CP=0;
+  17   2                      if(i & 0x01)
+  18   2                              DS=1;
+  19   2                      else
+  20   2                              DS=0;
+  21   2                      SH_CP=1;
+  22   2                      i>>=1;
+  23   2              }
+  24   1              i=0x7f;  //行，低电位有效
+  25   1              for(j=0;j<8;j++)
+  26   1              {
+  27   2                      SH_CP=0;
+  28   2                      ST_CP=0;                        
+  29   2      
+  30   2                      if(i & 0x01)
+  31   2                              DS=1;
+  32   2                      else
+  33   2                              DS=0;
+  34   2                      SH_CP=1;
+  35   2                      i>>=1;
+  36   2              }
+  37   1              ST_CP=1;
+  38   1              while(1);       
+  39   1      }       
+  40          
+  41          
+  42          
+  43          
+  44          
+  45          
+  46          
+  47          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     60    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+C51 COMPILER V8.06   DZP                                                                   07/01/2020 23:33:45 PAGE 2   
+
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

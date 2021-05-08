@@ -1,0 +1,111 @@
+C51 COMPILER V8.06   COUNT                                                                 07/07/2020 23:13:08 PAGE 1   
+
+
+C51 COMPILER V8.06, COMPILATION OF MODULE COUNT
+OBJECT MODULE PLACED IN count.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE count.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include<intrins.h>
+   3          #define uint unsigned int
+   4          #define uchar unsigned char
+   5          uint bai,shi,ge,a=0;
+   6          sbit W_LE=P2^7; 
+   7          sbit D_LE=P2^6;
+   8          sbit LED=P1^7;
+   9          unsigned code Wei[10]={  0xfe,0xfd,0xfb,0xf7, 0xef,0xdf,0xbf,0x7f };
+  10          unsigned code Duan[10]={ 0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F,};
+  11          void delay(uint z)
+  12          {
+  13   1              uchar y;
+  14   1              for(;z>0;z--)
+  15   1                      for(y=120;y>0;y--);
+  16   1      }
+  17          void display(uint bat)
+  18          {
+  19   1              bai=bat/100;
+  20   1              shi=bat%100/10;
+  21   1              ge=bat%10;      
+  22   1      
+  23   1              P0=0xff;
+  24   1              W_LE=1;
+  25   1              P0=Wei[7];
+  26   1              W_LE=0;
+  27   1              D_LE=1;
+  28   1              P0=Duan[ge];
+  29   1              D_LE=0;
+  30   1              delay(10);
+  31   1      
+  32   1              P0=0xff;
+  33   1              W_LE=1;
+  34   1              P0=Wei[6];
+  35   1              W_LE=0;
+  36   1              D_LE=1;
+  37   1              P0=Duan[shi];
+  38   1              D_LE=0;
+  39   1              delay(10);
+  40   1      
+  41   1              P0=0xff;
+  42   1              W_LE=1;
+  43   1              P0=Wei[5];
+  44   1              W_LE=0;
+  45   1              D_LE=1;
+  46   1              P0=Duan[bai];
+  47   1              D_LE=0;
+  48   1              delay(10);                
+  49   1      }
+  50          void time1Init()  //定时器1定时模式
+  51          {
+  52   1              TMOD |= 0x10;
+  53   1              TR1=1;
+  54   1                              TH1=0x4c;
+  55   1                              TL1=0x00;
+C51 COMPILER V8.06   COUNT                                                                 07/07/2020 23:13:08 PAGE 2   
+
+  56   1      }
+  57          void countInit() //定时器0计数模式
+  58          {
+  59   1              TMOD |=0x05;
+  60   1              TR0=1;
+  61   1              TH0=0;
+  62   1              TL0=0;
+  63   1      }
+  64          
+  65          void main()
+  66          {
+  67   1              time1Init();
+  68   1              countInit();
+  69   1              while(1)
+  70   1              {       
+  71   2                      if(TF1==1)
+  72   2                      {
+  73   3                              TF1=0;
+  74   3                              TH1=0x4c;
+  75   3                              TL1=0x00;
+  76   3                              a++;
+  77   3                              if(a==10)
+  78   3                              {
+  79   4                                      LED=~LED;
+  80   4                                      a=0;            
+  81   4                              }
+  82   3                      }       
+  83   2                      display(TL0);     
+  84   2              }
+  85   1      }
+  86          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    275    ----
+   CONSTANT SIZE    =     40    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      8    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

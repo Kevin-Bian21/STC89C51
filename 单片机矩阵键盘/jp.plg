@@ -1,0 +1,432 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+C:\Keil\程序\清翔单片机矩阵键盘\jp.uv2
+Project File Date:  07/05/2020
+
+<h2>Output:</h2>
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(25): 错误 C171: 'break': missing enclosing loop
+JP.C(26): 错误 C172: 'case': missing enclosing switch
+JP.C(26): 错误 C171: 'break': missing enclosing loop
+JP.C(27): 错误 C172: 'case': missing enclosing switch
+JP.C(27): 错误 C171: 'break': missing enclosing loop
+JP.C(28): 错误 C172: 'case': missing enclosing switch
+JP.C(28): 错误 C171: 'break': missing enclosing loop
+JP.C(34): 错误 C171: 'break': missing enclosing loop
+JP.C(35): 错误 C172: 'case': missing enclosing switch
+JP.C(35): 错误 C171: 'break': missing enclosing loop
+JP.C(36): 错误 C172: 'case': missing enclosing switch
+JP.C(36): 错误 C171: 'break': missing enclosing loop
+JP.C(37): 错误 C172: 'case': missing enclosing switch
+JP.C(37): 错误 C171: 'break': missing enclosing loop
+JP.C(42): 错误 C202: 'shi': undefined identifier
+JP.C(43): 错误 C202: 'ge': undefined identifier
+JP.C(44): 错误 C202: 'W_LE': undefined identifier
+JP.C(46): 错误 C202: 'W_LE': undefined identifier
+JP.C(48): 错误 C202: 'D_LE': undefined identifier
+JP.C(49): 错误 C202: 'shi': undefined identifier
+JP.C(50): 错误 C202: 'D_LE': undefined identifier
+JP.C(52): 错误 C202: 'W_LE': undefined identifier
+JP.C(54): 错误 C202: 'W_LE': undefined identifier
+JP.C(56): 错误 C202: 'D_LE': undefined identifier
+JP.C(57): 错误 C202: 'ge': undefined identifier
+JP.C(58): 错误 C202: 'D_LE': undefined identifier
+目标未产生
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(27): 错误 C171: 'break': missing enclosing loop
+JP.C(28): 错误 C172: 'case': missing enclosing switch
+JP.C(28): 错误 C171: 'break': missing enclosing loop
+JP.C(29): 错误 C172: 'case': missing enclosing switch
+JP.C(29): 错误 C171: 'break': missing enclosing loop
+JP.C(30): 错误 C172: 'case': missing enclosing switch
+JP.C(30): 错误 C171: 'break': missing enclosing loop
+JP.C(36): 错误 C171: 'break': missing enclosing loop
+JP.C(37): 错误 C172: 'case': missing enclosing switch
+JP.C(37): 错误 C171: 'break': missing enclosing loop
+JP.C(38): 错误 C172: 'case': missing enclosing switch
+JP.C(38): 错误 C171: 'break': missing enclosing loop
+JP.C(39): 错误 C172: 'case': missing enclosing switch
+JP.C(39): 错误 C171: 'break': missing enclosing loop
+JP.C(44): 错误 C202: 'shi': undefined identifier
+JP.C(45): 错误 C202: 'ge': undefined identifier
+JP.C(51): 错误 C202: 'shi': undefined identifier
+JP.C(59): 错误 C202: 'ge': undefined identifier
+目标未产生
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(27): 错误 C171: 'break': missing enclosing loop
+JP.C(28): 错误 C172: 'case': missing enclosing switch
+JP.C(28): 错误 C171: 'break': missing enclosing loop
+JP.C(29): 错误 C172: 'case': missing enclosing switch
+JP.C(29): 错误 C171: 'break': missing enclosing loop
+JP.C(30): 错误 C172: 'case': missing enclosing switch
+JP.C(30): 错误 C171: 'break': missing enclosing loop
+JP.C(36): 错误 C171: 'break': missing enclosing loop
+JP.C(37): 错误 C172: 'case': missing enclosing switch
+JP.C(37): 错误 C171: 'break': missing enclosing loop
+JP.C(38): 错误 C172: 'case': missing enclosing switch
+JP.C(38): 错误 C171: 'break': missing enclosing loop
+JP.C(39): 错误 C172: 'case': missing enclosing switch
+JP.C(39): 错误 C171: 'break': missing enclosing loop
+目标未产生
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(27): 错误 C171: 'break': missing enclosing loop
+JP.C(28): 错误 C172: 'case': missing enclosing switch
+JP.C(28): 错误 C171: 'break': missing enclosing loop
+JP.C(29): 错误 C172: 'case': missing enclosing switch
+JP.C(29): 错误 C171: 'break': missing enclosing loop
+JP.C(30): 错误 C172: 'case': missing enclosing switch
+JP.C(30): 错误 C171: 'break': missing enclosing loop
+JP.C(36): 错误 C171: 'break': missing enclosing loop
+JP.C(37): 错误 C172: 'case': missing enclosing switch
+JP.C(37): 错误 C171: 'break': missing enclosing loop
+JP.C(38): 错误 C172: 'case': missing enclosing switch
+JP.C(38): 错误 C171: 'break': missing enclosing loop
+JP.C(39): 错误 C172: 'case': missing enclosing switch
+JP.C(39): 错误 C171: 'break': missing enclosing loop
+目标未产生
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(27): 错误 C141: syntax error near ':'
+JP.C(27): 错误 C141: syntax error near 'num'
+JP.C(27): 错误 C171: 'break': missing enclosing loop
+JP.C(28): 错误 C172: 'case': missing enclosing switch
+JP.C(28): 错误 C171: 'break': missing enclosing loop
+JP.C(29): 错误 C172: 'case': missing enclosing switch
+JP.C(29): 错误 C171: 'break': missing enclosing loop
+JP.C(30): 错误 C172: 'case': missing enclosing switch
+JP.C(30): 错误 C171: 'break': missing enclosing loop
+JP.C(36): 错误 C171: 'break': missing enclosing loop
+JP.C(37): 错误 C172: 'case': missing enclosing switch
+JP.C(37): 错误 C171: 'break': missing enclosing loop
+JP.C(38): 错误 C172: 'case': missing enclosing switch
+JP.C(38): 错误 C171: 'break': missing enclosing loop
+JP.C(39): 错误 C172: 'case': missing enclosing switch
+JP.C(39): 错误 C171: 'break': missing enclosing loop
+目标未产生
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(27): 错误 C171: 'break': missing enclosing loop
+JP.C(28): 错误 C172: 'case': missing enclosing switch
+JP.C(28): 错误 C171: 'break': missing enclosing loop
+JP.C(29): 错误 C172: 'case': missing enclosing switch
+JP.C(29): 错误 C171: 'break': missing enclosing loop
+JP.C(30): 错误 C172: 'case': missing enclosing switch
+JP.C(30): 错误 C171: 'break': missing enclosing loop
+JP.C(36): 错误 C171: 'break': missing enclosing loop
+JP.C(37): 错误 C172: 'case': missing enclosing switch
+JP.C(37): 错误 C171: 'break': missing enclosing loop
+JP.C(38): 错误 C172: 'case': missing enclosing switch
+JP.C(38): 错误 C171: 'break': missing enclosing loop
+JP.C(39): 错误 C172: 'case': missing enclosing switch
+JP.C(39): 错误 C171: 'break': missing enclosing loop
+目标未产生
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(27): 错误 C141: syntax error near 'break'
+JP.C(27): 错误 C171: 'break': missing enclosing loop
+JP.C(28): 错误 C172: 'case': missing enclosing switch
+JP.C(28): 错误 C171: 'break': missing enclosing loop
+JP.C(29): 错误 C172: 'case': missing enclosing switch
+JP.C(29): 错误 C171: 'break': missing enclosing loop
+JP.C(30): 错误 C172: 'case': missing enclosing switch
+JP.C(30): 错误 C171: 'break': missing enclosing loop
+JP.C(36): 错误 C141: syntax error near 'break'
+JP.C(36): 错误 C171: 'break': missing enclosing loop
+JP.C(37): 错误 C172: 'case': missing enclosing switch
+JP.C(37): 错误 C171: 'break': missing enclosing loop
+JP.C(38): 错误 C172: 'case': missing enclosing switch
+JP.C(38): 错误 C171: 'break': missing enclosing loop
+JP.C(39): 错误 C172: 'case': missing enclosing switch
+JP.C(39): 错误 C171: 'break': missing enclosing loop
+目标未产生
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(27): 错误 C171: 'break': missing enclosing loop
+JP.C(28): 错误 C172: 'case': missing enclosing switch
+JP.C(28): 错误 C171: 'break': missing enclosing loop
+JP.C(29): 错误 C172: 'case': missing enclosing switch
+JP.C(29): 错误 C171: 'break': missing enclosing loop
+JP.C(30): 错误 C172: 'case': missing enclosing switch
+JP.C(30): 错误 C171: 'break': missing enclosing loop
+JP.C(36): 错误 C141: syntax error near 'break'
+JP.C(36): 错误 C171: 'break': missing enclosing loop
+JP.C(37): 错误 C172: 'case': missing enclosing switch
+JP.C(37): 错误 C171: 'break': missing enclosing loop
+JP.C(38): 错误 C172: 'case': missing enclosing switch
+JP.C(38): 错误 C171: 'break': missing enclosing loop
+JP.C(39): 错误 C172: 'case': missing enclosing switch
+JP.C(39): 错误 C171: 'break': missing enclosing loop
+目标未产生
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(27): 错误 C171: 'break': missing enclosing loop
+JP.C(28): 错误 C172: 'case': missing enclosing switch
+JP.C(28): 错误 C171: 'break': missing enclosing loop
+JP.C(29): 错误 C172: 'case': missing enclosing switch
+JP.C(29): 错误 C171: 'break': missing enclosing loop
+JP.C(30): 错误 C172: 'case': missing enclosing switch
+JP.C(30): 错误 C171: 'break': missing enclosing loop
+JP.C(36): 错误 C171: 'break': missing enclosing loop
+JP.C(37): 错误 C172: 'case': missing enclosing switch
+JP.C(37): 错误 C171: 'break': missing enclosing loop
+JP.C(38): 错误 C172: 'case': missing enclosing switch
+JP.C(38): 错误 C171: 'break': missing enclosing loop
+JP.C(39): 错误 C172: 'case': missing enclosing switch
+JP.C(39): 错误 C171: 'break': missing enclosing loop
+目标未产生
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(28): 错误 C171: 'break': missing enclosing loop
+JP.C(29): 错误 C172: 'case': missing enclosing switch
+JP.C(29): 错误 C171: 'break': missing enclosing loop
+JP.C(30): 错误 C172: 'case': missing enclosing switch
+JP.C(30): 错误 C171: 'break': missing enclosing loop
+JP.C(31): 错误 C172: 'case': missing enclosing switch
+JP.C(31): 错误 C171: 'break': missing enclosing loop
+JP.C(37): 错误 C171: 'break': missing enclosing loop
+JP.C(38): 错误 C172: 'case': missing enclosing switch
+JP.C(38): 错误 C171: 'break': missing enclosing loop
+JP.C(39): 错误 C172: 'case': missing enclosing switch
+JP.C(39): 错误 C171: 'break': missing enclosing loop
+JP.C(40): 错误 C172: 'case': missing enclosing switch
+JP.C(40): 错误 C171: 'break': missing enclosing loop
+目标未产生
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(28): 错误 C171: 'break': missing enclosing loop
+JP.C(29): 错误 C172: 'case': missing enclosing switch
+JP.C(29): 错误 C171: 'break': missing enclosing loop
+JP.C(30): 错误 C172: 'case': missing enclosing switch
+JP.C(30): 错误 C171: 'break': missing enclosing loop
+JP.C(31): 错误 C172: 'case': missing enclosing switch
+JP.C(31): 错误 C171: 'break': missing enclosing loop
+JP.C(36): 错误 C171: 'break': missing enclosing loop
+JP.C(37): 错误 C172: 'case': missing enclosing switch
+JP.C(37): 错误 C171: 'break': missing enclosing loop
+JP.C(38): 错误 C172: 'case': missing enclosing switch
+JP.C(38): 错误 C171: 'break': missing enclosing loop
+JP.C(39): 错误 C172: 'case': missing enclosing switch
+JP.C(39): 错误 C171: 'break': missing enclosing loop
+目标未产生
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(28): 错误 C171: 'break': missing enclosing loop
+JP.C(29): 错误 C172: 'case': missing enclosing switch
+JP.C(29): 错误 C171: 'break': missing enclosing loop
+JP.C(30): 错误 C172: 'case': missing enclosing switch
+JP.C(30): 错误 C171: 'break': missing enclosing loop
+JP.C(31): 错误 C172: 'case': missing enclosing switch
+JP.C(31): 错误 C171: 'break': missing enclosing loop
+JP.C(36): 错误 C171: 'break': missing enclosing loop
+JP.C(37): 错误 C172: 'case': missing enclosing switch
+JP.C(37): 错误 C171: 'break': missing enclosing loop
+JP.C(38): 错误 C172: 'case': missing enclosing switch
+JP.C(38): 错误 C171: 'break': missing enclosing loop
+JP.C(39): 错误 C172: 'case': missing enclosing switch
+JP.C(39): 错误 C171: 'break': missing enclosing loop
+目标未产生
+编译 jp.c ...
+JP.C(28): 错误 C171: 'break': missing enclosing loop
+JP.C(29): 错误 C172: 'case': missing enclosing switch
+JP.C(29): 错误 C171: 'break': missing enclosing loop
+JP.C(30): 错误 C172: 'case': missing enclosing switch
+JP.C(30): 错误 C171: 'break': missing enclosing loop
+JP.C(31): 错误 C172: 'case': missing enclosing switch
+JP.C(31): 错误 C171: 'break': missing enclosing loop
+JP.C(36): 错误 C171: 'break': missing enclosing loop
+JP.C(37): 错误 C172: 'case': missing enclosing switch
+JP.C(37): 错误 C171: 'break': missing enclosing loop
+JP.C(38): 错误 C172: 'case': missing enclosing switch
+JP.C(38): 错误 C171: 'break': missing enclosing loop
+JP.C(39): 错误 C172: 'case': missing enclosing switch
+JP.C(39): 错误 C171: 'break': missing enclosing loop
+jp.c - 14 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(47): 错误 C141: syntax error near 'void'
+目标未产生
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(47): 错误 C141: syntax error near 'void'
+目标未产生
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(47): 错误 C141: syntax error near 'void'
+目标未产生
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(46): 错误 C141: syntax error near 'void'
+目标未产生
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=248
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+连接 ...
+Program Size: data=12.0 xdata=0 code=248
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(43): 警告 C276: constant in condition expression
+连接 ...
+Program Size: data=12.0 xdata=0 code=256
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 1 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=256
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=255
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=262
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=254
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=254
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=254
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=254
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=262
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=254
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=254
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=254
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=262
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=262
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=262
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=262
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=262
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=262
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(49): 错误 C141: syntax error near 'if'
+目标未产生
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=315
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+JP.C(56): 错误 C202: 'oxff': undefined identifier
+目标未产生
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=323
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=315
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+编译 jp.c ...
+连接 ...
+Program Size: data=12.0 xdata=0 code=323
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+连接 ...
+Program Size: data=12.0 xdata=0 code=323
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+编译 jp.c ...
+jp.c - 0 个错误, 0 个警告。
+创建目标 '目标 1'
+连接 ...
+Program Size: data=12.0 xdata=0 code=323
+创建 HEX 文件 "jp" ...
+"jp" - 0 个错误, 0 个警告。
+</pre>
+</body>
+</html>

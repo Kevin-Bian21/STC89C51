@@ -1,0 +1,119 @@
+C51 COMPILER V8.06   UART                                                                  08/02/2020 21:48:21 PAGE 1   
+
+
+C51 COMPILER V8.06, COMPILATION OF MODULE UART
+OBJECT MODULE PLACED IN UART.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE UART.C BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<reg52.h>
+   2          #include<intrins.h>
+   3          #define uint unsigned int 
+   4          #define uchar unsigned char
+   5          sbit W_LE=P2^7;
+   6          sbit D_LE=P2^6;
+   7          uchar num;
+   8          //sbit Key_s2=P3^0;
+   9          
+  10          uchar code Wei[]={0xfe,0xfb,0xfd,0xf7,0xef,0xdf,0xbf,0x7f};
+  11          uchar code Duan[]={0x3F, 0x06, 0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F, 0x6F,};
+  12          
+  13          void display(uchar j)
+  14          {
+  15   1              static uchar i=5;
+  16   1              P0=0xff;
+  17   1              W_LE=1;
+  18   1              P0=Wei[i];
+  19   1              W_LE=0;
+  20   1              switch(i)
+  21   1              {
+  22   2                      case 5: D_LE=1;P0=Duan[j/100];D_LE=0;break;
+  23   2                      case 6: D_LE=1;P0=Duan[j%100/10];D_LE=0;break;
+  24   2                      case 7: D_LE=1;P0=Duan[j%10];D_LE=0;break;
+  25   2               }
+  26   1              i++;
+  27   1              if(i>7)
+  28   1                      i=5;
+  29   1      } 
+  30          //定时器0初始化   
+  31          void time0Init()
+  32          {
+  33   1              TMOD|=0x01;
+  34   1              TR0=1;
+  35   1              TH0=0xee;
+  36   1              TL0=0x00;
+  37   1      } 
+  38          //串口初始化
+  39          void UARTInit() 
+  40          {
+  41   1              SM0=0; SM1=1;// 或SCON=0x50(包含了REN）;设置串行口工作方式，8位UART波特率可变
+  42   1              REN=1; //允许串行口接收
+  43   1              TR1=1;
+  44   1              PCON=0;
+  45   1              TMOD|=0x20;
+  46   1              TH1=0xfd;          //比特率9600
+  47   1              TL1=0xfd;  
+  48   1      }
+  49          void main ()
+  50          {       
+  51   1              EA=1;  //开总中断
+  52   1              ET0=1; //允许To中断
+  53   1              ES=1;   //允许串行口中断
+  54   1              UARTInit();
+  55   1              time0Init();
+C51 COMPILER V8.06   UART                                                                  08/02/2020 21:48:21 PAGE 2   
+
+  56   1       
+  57   1      
+  58   1              while(1); 
+  59   1      }
+  60          
+  61          //定时器0中断函数
+  62          void time0() interrupt 1//定时器0溢出中断
+  63          {
+  64   1              TH0=0xee;
+  65   1              TL0=0x00; //定时五毫秒
+  66   1              display(num);
+  67   1      }  
+  68          //串口中断函数                   
+  69          void UART() interrupt 4 //串行口中断
+  70          {       
+  71   1      //      uchar bemp;
+  72   1              if(RI)    //接收中断请求标志位，当接收到第八位时，RI会被置一；该位由软件清零
+  73   1              {
+  74   2                      num=SBUF;
+  75   2                      if(SBUF==1)
+  76   2                      P1=0;
+  77   2                      else if(SBUF==2)
+  78   2                              P1=1;
+  79   2                      RI=0;
+  80   2      
+  81   2              //      bemp=num;
+  82   2              //      SBUF=++bemp;
+  83   2              //      SBUF=num;
+  84   2              }
+  85   1      //      if(TI) //TI=1；发送数据成功
+  86   1      //              TI=0;
+  87   1      }                        
+  88                            
+  89                            
+  90                                                          
+  91                           
+  92                            
+  93                           
+  94               
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    202    ----
+   CONSTANT SIZE    =     18    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

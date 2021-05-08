@@ -1,0 +1,82 @@
+C51 COMPILER V8.06   PWM                                                                   07/15/2020 16:32:25 PAGE 1   
+
+
+C51 COMPILER V8.06, COMPILATION OF MODULE PWM
+OBJECT MODULE PLACED IN PWM.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE PWM.C BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #define uint unsigned int
+   3          #define uchar unsigned char
+   4          #define MAIN_Fosc   11059200UL //ºê¶¨ÒåÊ±ÖÓHZ
+   5          //sfr P4=0xe8;
+   6          //sbit DAC_data=P4^4;
+   7          sbit DAC_data=P1;
+   8          uchar DAC_VAL;//Õ¼¿Õ±È²ÎÊý
+   9          uchar pwm_t;//ÖÜÆÚ
+  10          bit flag;
+  11          
+  12          void delay(uint ms)
+  13          {
+  14   1              uint i;
+  15   1              do{
+  16   2                      i=MAIN_Fosc/96000;
+  17   2                              while(--i);
+  18   2                      }while(--ms);
+  19   1      }
+  20          void time0Init()
+  21          {
+  22   1              TMOD=0x02;
+  23   1              TH0=220;
+  24   1              TL0=220;
+  25   1              TR0=1;
+  26   1              ET0=1;
+  27   1      }
+  28          void main()
+  29          {
+  30   1              EA=1;
+  31   1              time0Init();
+  32   1              DAC_VAL=255;  //°ËÎ»DA£¬ÂúÁ¿³ÌÎª5V
+  33   1              
+  34   1              while(1)
+  35   1              {
+  36   2                      delay(5);
+  37   2                      if(DAC_VAL==255)
+  38   2                              flag=1;                  
+  39   2                              else if(DAC_VAL==80)
+  40   2                                      flag=0;
+  41   2                      if((DAC_VAL<255)&&(flag==0))
+  42   2                              DAC_VAL++;
+  43   2                              else if((DAC_VAL>0)&&(flag==1))
+  44   2                                      DAC_VAL--;
+  45   2              }
+  46   1      }
+  47          void time() interrupt 1
+  48          {
+  49   1              TH0=220;
+  50   1              TL0=220; //11.0592MHZ¾§ÕñÏÂÕ¼¿Õ±È×î´óÎª256£»Êä³ö100HZ£¨36*256*1.085=9999.36us£»f=1/T£©£º£»Âú255Òç³ö£¬pwm¼
+             -ÓÒ»
+  51   1              pwm_t++; //ÖÜÆÚ¼Óµ½255Òç³ö
+  52   1              if(pwm_t<=DAC_VAL)
+  53   1                      DAC_data=1;
+  54   1              else 
+C51 COMPILER V8.06   PWM                                                                   07/15/2020 16:32:25 PAGE 2   
+
+  55   1                      DAC_data=0;
+  56   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    126    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

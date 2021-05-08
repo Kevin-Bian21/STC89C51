@@ -1,0 +1,70 @@
+C51 COMPILER V8.06   8LED                                                                  07/05/2020 22:09:18 PAGE 1   
+
+
+C51 COMPILER V8.06, COMPILATION OF MODULE 8LED
+OBJECT MODULE PLACED IN 8LED.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 8LED.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include"reg51.h"
+   2          #include<intrins.h>
+   3          #define uint unsigned int
+   4          sbit beep=P2^3;
+   5          
+   6          void delay(uint z)
+   7          {       unsigned i,y;
+   8   1              for(i=z;z>0;z--)  
+   9   1                      for(y=120;y>0;y--);
+  10   1      }
+  11          /*
+  12          void main()
+  13          {
+  14                  unsigned i;
+  15                  while(1)
+  16                  {
+  17                          P1=0x80;
+  18                          delay();        
+  19                          for(i=0;i<8;i++)
+  20                          {       
+  21                                  P1=P1>>1;
+  22                                  beep=~beep;
+  23                                  delay(); 
+  24                          }  
+  25                          
+  26                  }
+  27          }
+  28          */
+  29          
+  30          
+  31          
+  32          void main()
+  33          {       
+  34   1              unsigned a;
+  35   1              P1=0xfe;        
+  36   1              while(1)
+  37   1              { 
+  38   2                      a=P1;
+  39   2                      P1=_cror_(a,1);
+  40   2                      beep=0;         
+  41   2                      delay(500);
+  42   2                      beep=1;
+  43   2                      delay(500); 
+  44   2              }
+  45   1      }                                                       
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     74    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+C51 COMPILER V8.06   8LED                                                                  07/05/2020 22:09:18 PAGE 2   
+
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

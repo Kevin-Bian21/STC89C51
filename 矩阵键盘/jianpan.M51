@@ -1,0 +1,156 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        07/01/2020  01:43:33  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE jianpan.obj TO jianpan RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  jianpan.obj (JIANPAN)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  jianpan (JIANPAN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0003H     UNIT         ?DT?JIANPAN
+            IDATA   000BH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0063H     UNIT         ?PR?KEY_SCAN?JIANPAN
+            CODE    0066H     003DH     UNIT         ?PR?DISPLAY?JIANPAN
+            CODE    00A3H     001EH     UNIT         ?PR?_DELAY?JIANPAN
+            CODE    00C1H     000DH     UNIT         ?CO?JIANPAN
+            CODE    00CEH     000CH     UNIT         ?C_C51STARTUP
+            CODE    00DAH     0008H     UNIT         ?PR?MAIN?JIANPAN
+
+
+
+OVERLAY MAP OF MODULE:   jianpan (JIANPAN)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?JIANPAN
+
+?PR?MAIN?JIANPAN
+  +--> ?PR?KEY_SCAN?JIANPAN
+  +--> ?PR?DISPLAY?JIANPAN
+
+?PR?KEY_SCAN?JIANPAN
+  +--> ?PR?_DELAY?JIANPAN
+
+?PR?DISPLAY?JIANPAN
+  +--> ?CO?JIANPAN
+  +--> ?PR?_DELAY?JIANPAN
+
+
+
+SYMBOL TABLE OF MODULE:  jianpan (JIANPAN)
+
+BL51 BANKED LINKER/LOCATER V6.05                                                      07/01/2020  01:43:33  PAGE 2
+
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        JIANPAN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  C:00C1H         PUBLIC        Duan
+  D:0008H         PUBLIC        shiwei
+  D:00A8H         PUBLIC        IE
+  C:00A3H         PUBLIC        _delay
+  D:0009H         PUBLIC        gewei
+  D:00B8H         PUBLIC        IP
+  C:00CCH         PUBLIC        Wei
+  C:00DAH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  D:000AH         PUBLIC        num
+  C:0003H         PUBLIC        key_scan
+  D:00C8H         PUBLIC        T2CON
+  C:0066H         PUBLIC        display
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        z
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0004H         SYMBOL        y
+  -------         ENDDO         
+  C:00A3H         LINE#         12
+  C:00A3H         LINE#         13
+  C:00A3H         LINE#         15
+  C:00ACH         LINE#         16
+  C:00C0H         LINE#         17
+  -------         ENDPROC       _DELAY
+  -------         PROC          KEY_SCAN
+  C:0003H         LINE#         19
+  C:0003H         LINE#         20
+  C:0003H         LINE#         21
+  C:0006H         LINE#         22
+  C:000CH         LINE#         23
+  C:000CH         LINE#         24
+  C:0013H         LINE#         25
+  C:0019H         LINE#         26
+  C:0019H         LINE#         27
+  C:002BH         LINE#         28
+  C:002BH         LINE#         29
+  C:0030H         LINE#         30
+  C:0035H         LINE#         31
+  C:003AH         LINE#         32
+  C:003DH         LINE#         33
+  C:003DH         LINE#         34
+  C:0040H         LINE#         35
+  C:0053H         LINE#         36
+  C:0053H         LINE#         37
+  C:0057H         LINE#         38
+BL51 BANKED LINKER/LOCATER V6.05                                                      07/01/2020  01:43:33  PAGE 3
+
+
+  C:005AH         LINE#         39
+  C:005FH         LINE#         40
+  C:0065H         LINE#         41
+  C:0065H         LINE#         43
+  C:0065H         LINE#         44
+  C:0065H         LINE#         45
+  -------         ENDPROC       KEY_SCAN
+  -------         PROC          DISPLAY
+  C:0066H         LINE#         46
+  C:0066H         LINE#         47
+  C:0066H         LINE#         48
+  C:006EH         LINE#         49
+  C:0077H         LINE#         52
+  C:007EH         LINE#         53
+  C:0086H         LINE#         54
+  C:008DH         LINE#         56
+  C:0094H         LINE#         57
+  C:009CH         LINE#         58
+  -------         ENDPROC       DISPLAY
+  -------         PROC          MAIN
+  C:00DAH         LINE#         60
+  C:00DAH         LINE#         61
+  C:00DAH         LINE#         62
+  C:00DAH         LINE#         63
+  C:00DAH         LINE#         64
+  C:00DDH         LINE#         65
+  C:00E0H         LINE#         66
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        JIANPAN
+
+Program Size: data=12.0 xdata=0 code=226
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

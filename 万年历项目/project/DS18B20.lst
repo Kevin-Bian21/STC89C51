@@ -1,0 +1,84 @@
+C51 COMPILER V8.06   DS18B20                                                               07/29/2020 18:13:30 PAGE 1   
+
+
+C51 COMPILER V8.06, COMPILATION OF MODULE DS18B20
+OBJECT MODULE PLACED IN ..\output\DS18B20.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ..\Sources\DS18B20.c BROWSE DEBUG OBJECTEXTEND PRINT(.\DS18B20.lst) OBJECT(
+                    -..\output\DS18B20.obj)
+
+line level    source
+
+   1          #include "DS18B20.h"
+   2          void delay(uchar a)  
+   3          {
+   4   1          while(a--);
+   5   1      }
+   6          
+   7          bit Init_DS18B20()        //初始化，由DS18B20发回存在指令
+   8          {
+   9   1              uchar i;
+  10   1              DS=1;
+  11   1              DS=0;
+  12   1              delay(75);
+  13   1              DS=1;
+  14   1              delay(4);
+  15   1              i=DS;
+  16   1              delay(20);
+  17   1              return (i);
+  18   1      }
+  19          
+  20          void Write_DS18B20(uchar dat)
+  21          {
+  22   1              uchar i;
+  23   1              for(i=0;i<8;i++)
+  24   1              {  
+  25   2                      DS=0;
+  26   2                      _nop_();
+  27   2                      if(dat&0x01)
+  28   2                              DS=1;
+  29   2                      else
+  30   2                              DS=0;
+  31   2                      delay(10);
+  32   2                      DS=1;  //释放总线，以便下一次写入
+  33   2                      _nop_();
+  34   2                      dat>>=1;
+  35   2              }
+  36   1      }
+  37          uchar Read_DS18B20()
+  38          {
+  39   1              uchar i;
+  40   1              uchar dat;
+  41   1              for(i=0;i<8;i++)
+  42   1              {
+  43   2                      DS=0;
+  44   2                      _nop_();
+  45   2                      DS=1;
+  46   2                      _nop_();
+  47   2                      dat>>=1;
+  48   2                      if(DS)
+  49   2                              dat|=0x80;
+  50   2                      delay(10);
+  51   2                      DS=1;
+  52   2                      _nop_();
+  53   2              }
+  54   1              return(dat);
+C51 COMPILER V8.06   DS18B20                                                               07/29/2020 18:13:30 PAGE 2   
+
+  55   1      }
+  56          
+  57          
+  58                                          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    104    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

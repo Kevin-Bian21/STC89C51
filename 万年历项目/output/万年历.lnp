@@ -1,0 +1,7 @@
+"..\output\LCD1602.obj",
+"..\output\main.obj",
+"..\output\DS1302.obj",
+"..\output\DS18B20.obj",
+"..\output\Button.obj" 
+TO "..\output\万年历" 
+PRINT(".\万年历.m51") RAMSIZE(256) 

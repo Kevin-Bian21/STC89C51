@@ -39,7 +39,7 @@
 				case 0xb0:	num=num+2;break;
 				case 0x70:	num=num+3;break;
 			}
-		//	while(P1!=0xf0);
+		  //while(P1!=0xf0);
 		 }
 	 }
  }
